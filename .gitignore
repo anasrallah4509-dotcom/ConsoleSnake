@@ -1,0 +1,98 @@
+# .gitignore for C# / .NET projects
+# Generated for a repository that contains only C# code
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+*.vcxproj.filters
+*.sdf
+*.opensdf
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+out/
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.user
+*.userprefs
+*.csproj.user
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+.nuget/packages/
+.nuget/packages.config
+
+# Dotnet publish output
+publish/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.testsettings
+
+# Resharper
+_ReSharper*/
+*.ReSharper*
+*.DotSettings.user
+
+# NCrunch
+*.ncrunch*
+
+# JetBrains Rider local history
+.idea/
+
+# EF Core
+*.db
+*.db-shm
+*.db-wal
+
+# Debug files
+*.pidb
+*.pdb
+*.ilk
+*.map
+*_i.c
+*_p.c
+*_h.h
+*.o
+*.obj
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Coverage & profiling
+coverage*.xml
+coverage/
+
+# Other
+*.vsix
+
+# Ignore compiled DLLs and EXEs
+*.dll
+*.exe
+*.app
+*.msi
