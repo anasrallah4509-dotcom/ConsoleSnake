@@ -11,70 +11,84 @@ namespace Snake
         static Random rnd = new Random();
         static void Main(string[] args)
         {
-            int posX = Console.WindowWidth / 2;
-            int posY = Console.WindowHeight / 2;
+            int[] posX = new int[100];
+            int[] posY = new int[100];
 
-            int vecchiaX;
-            int vecchiaY;
+            posX[0] = Console.WindowWidth / 2;
+            posY[0] = Console.WindowHeight / 2;
+
 
             int melaX = 0;
             int melaY = 0;
 
-            int score = 0;
+            int dirY = 0;
+            int dirX = 1;
+
+            int score = 1;
 
             ConsoleKeyInfo tasto = Console.ReadKey(true);
 
 
-            DisegnaAsterisco(posX, posY);
+            DisegnaAsterisco(posX[0], posY[0]);
             
             RndMela(out melaX, out melaY);
             
             do
             {
-                tasto = Console.ReadKey(true);
 
-                vecchiaX = posX;
-                vecchiaY = posY;
+                DisegnaSpazio(posX[score - 1], posY[score - 1]);
+                
+                if (Console.KeyAvailable)
+                {
+                    tasto = Console.ReadKey(true);
 
-                if (tasto.Key == ConsoleKey.UpArrow)
-                {
-                    posY--;
-                }
-                else if(tasto.Key == ConsoleKey.DownArrow)
-                {
-                    posY++;
-                }
-                else if (tasto.Key == ConsoleKey.LeftArrow)
-                {
-                    posX--;
-                }
-                else if (tasto.Key == ConsoleKey.RightArrow)
-                {
-                    posX++;
+                    if (tasto.Key == ConsoleKey.UpArrow)
+                    {
+                        dirX = 0;
+                        dirY = -1;
+                    }
+                    else if(tasto.Key == ConsoleKey.DownArrow)
+                    {
+                        dirX = 0;
+                        dirY = 1;
+                    }
+                    else if (tasto.Key == ConsoleKey.LeftArrow)
+                    {
+                        dirX = -1;
+                        dirY = 0;
+                    }
+                    else if (tasto.Key == ConsoleKey.RightArrow)
+                    {
+                        dirX = 1;
+                        dirY = 0;
+                    }
                 }
 
-                if (posX == melaX && posY == melaY)
+                for (int i = score - 1; i > 0; i--)
+                {
+                    posX[i] = posX[i - 1];
+                    posY[i] = posY[i - 1];
+                }
+
+                posX[0] += dirX;
+                posY[0] += dirY;
+
+                if (posX[0] == melaX && posY[0] == melaY)
                 {
                     score++;
                     RndMela(out melaX, out melaY);
                 }
 
-                if (posX == Console.WindowWidth || posY == Console.WindowHeight ||
-                    posX < 0 || posY < 0)
+                if (posX[0] == Console.WindowWidth || posY[0] == Console.WindowHeight ||
+                    posX[0] < 0 || posY[0] < 0)
                 {
                     break;
                 }
 
-                if(score > 1 && tasto.Key == ConsoleKey.UpArrow)
-                {
-                    for (int i = 0; i < score; i++)
-                    {
-                        DisegnaAsterisco(posX, posY - 1);
-                    }
-                }
 
-                DisegnaSpazio(vecchiaX, vecchiaY);
-                DisegnaAsterisco(posX, posY);
+                DisegnaAsterisco(posX[0], posY[0]);
+                
+                Thread.Sleep(100);
 
             }
             while (true);
@@ -95,14 +109,12 @@ namespace Snake
 
         private static void DisegnaSpazio(int left, int top)
         {
-            Thread.Sleep(1);
             Console.SetCursorPosition(left, top);
             Console.Write(' ');
         }
 
         private static void DisegnaAsterisco(int left, int top)
         {
-            Thread.Sleep(1);
             Console.SetCursorPosition(left, top);
             Console.Write('*');
         }
