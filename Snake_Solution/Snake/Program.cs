@@ -23,7 +23,8 @@ namespace Snake
             int score = 0;
 
             ConsoleKeyInfo tasto = Console.ReadKey(true);
-            
+
+
             DisegnaAsterisco(posX, posY);
             
             RndMela(out melaX, out melaY);
@@ -54,18 +55,32 @@ namespace Snake
 
                 if (posX == melaX && posY == melaY)
                 {
-                    RndMela(out melaX, out melaY);
                     score++;
+                    RndMela(out melaX, out melaY);
                 }
 
+                if (posX == Console.WindowWidth || posY == Console.WindowHeight ||
+                    posX < 0 || posY < 0)
+                {
+                    break;
+                }
+
+                if(score > 1 && tasto.Key == ConsoleKey.UpArrow)
+                {
+                    for (int i = 0; i < score; i++)
+                    {
+                        DisegnaAsterisco(posX, posY - 1);
+                    }
+                }
 
                 DisegnaSpazio(vecchiaX, vecchiaY);
                 DisegnaAsterisco(posX, posY);
 
             }
             while (true);
-
+            GameOver();
         }
+
 
         private static void RndMela(out int melaX, out int melaY)
         {
@@ -91,6 +106,10 @@ namespace Snake
             Console.SetCursorPosition(left, top);
             Console.Write('*');
         }
-
+        private static void GameOver()
+        {
+            Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Console.WriteLine("Game Over.");
+        }
     }
 }
